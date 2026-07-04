@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harsh Sahu — Lazy-Pir8</title>
+<meta name="description" content="Harsh Sahu (Lazy-Pir8) — developer portfolio. Projects, tech stack and GitHub activity.">
+<meta property="og:title" content="Harsh Sahu — Lazy-Pir8">
+<meta property="og:description" content="Lets Create Something Cool. Developer portfolio, projects and tech stack.">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/216952756?v=4">
+<meta property="og:type" content="website">
+<link rel="icon" href="https://avatars.githubusercontent.com/u/216952756?v=4">
+<style>
+  :root{
+    --bg:#0a0b10; --bg2:#0f1118; --panel:#12141d; --panel2:#171a25;
+    --border:#232838; --text:#e7eaf2; --muted:#8b93a7;
+    --accent:#7c5cff; --accent2:#22d3ee; --accent3:#f471b5;
+    --ring:rgba(124,92,255,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.6;
+    overflow-x:hidden; -webkit-font-smoothing:antialiased;
+  }
+  /* animated aurora background */
+  .aurora{position:fixed;inset:0;z-index:-2;overflow:hidden}
+  .aurora::before,.aurora::after{
+    content:"";position:absolute;width:60vw;height:60vw;border-radius:50%;
+    filter:blur(90px);opacity:.45;animation:float 18s ease-in-out infinite;
+  }
+  .aurora::before{background:radial-gradient(circle,#7c5cff,transparent 60%);top:-15%;left:-10%}
+  .aurora::after{background:radial-gradient(circle,#22d3ee,transparent 60%);bottom:-20%;right:-10%;animation-delay:-9s}
+  .grid-bg{position:fixed;inset:0;z-index:-1;
+    background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+    background-size:44px 44px;opacity:.12;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 75%);}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(4%,6%) scale(1.15)}}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
+    background:rgba(10,11,16,.6);border-bottom:1px solid var(--border)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{font-weight:800;letter-spacing:.5px;display:flex;align-items:center;gap:9px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .navlinks{display:flex;gap:26px}
+  .navlinks a{color:var(--muted);text-decoration:none;font-size:.92rem;font-weight:500;transition:color .2s}
+  .navlinks a:hover{color:var(--text)}
+  @media(max-width:640px){.navlinks{display:none}}
+
+  /* hero */
+  header{padding:70px 0 40px;position:relative}
+  .hero{display:flex;gap:38px;align-items:center;flex-wrap:wrap}
+  .avatar-ring{position:relative;flex:0 0 auto}
+  .avatar-ring img{width:150px;height:150px;border-radius:50%;border:3px solid transparent;
+    background:var(--bg);position:relative;z-index:2;display:block}
+  .avatar-ring::before{content:"";position:absolute;inset:-5px;border-radius:50%;
+    background:conic-gradient(from 0deg,var(--accent),var(--accent2),var(--accent3),var(--accent));
+    z-index:1;animation:spin 6s linear infinite;filter:blur(2px)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .hero-info{flex:1;min-width:280px}
+  .hero-info h1{font-size:2.7rem;font-weight:800;line-height:1.1;letter-spacing:-1px;
+    background:linear-gradient(90deg,#fff,#b9b3ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .handle{color:var(--accent2);font-weight:600;font-size:1.05rem;margin-top:4px}
+  .bio{font-size:1.25rem;color:#cdd3e0;margin:14px 0;font-weight:500}
+  .meta{display:flex;flex-wrap:wrap;gap:16px;color:var(--muted);font-size:.92rem;margin-bottom:18px}
+  .meta span{display:flex;align-items:center;gap:6px}
+  .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:11px;
+    text-decoration:none;font-weight:600;font-size:.92rem;transition:transform .18s,box-shadow .18s,background .18s;border:1px solid var(--border)}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),#5b3df0);color:#fff;border:none;box-shadow:0 8px 24px var(--ring)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px var(--ring)}
+  .btn-ghost{background:var(--panel);color:var(--text)}
+  .btn-ghost:hover{background:var(--panel2);transform:translateY(-2px)}
+
+  /* stat row */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:44px 0 10px}
+  .stat{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--border);
+    border-radius:16px;padding:20px 16px;text-align:center;transition:transform .2s,border-color .2s}
+  .stat:hover{transform:translateY(-4px);border-color:var(--accent)}
+  .stat .num{font-size:1.9rem;font-weight:800;background:linear-gradient(90deg,var(--accent2),var(--accent));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .lbl{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+  @media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  /* sections */
+  section{padding:56px 0 10px}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+  .sec-head h2{font-size:1.7rem;font-weight:800;letter-spacing:-.5px}
+  .sec-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+  .sec-head .idx{color:var(--accent);font-family:ui-monospace,monospace;font-size:.95rem;font-weight:700}
+
+  /* stack */
+  .chips{display:flex;flex-wrap:wrap;gap:11px}
+  .chip{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--border);
+    padding:9px 15px;border-radius:11px;font-size:.9rem;font-weight:600;transition:transform .18s,border-color .18s,background .18s}
+  .chip:hover{transform:translateY(-3px);border-color:var(--accent2);background:var(--panel2)}
+  .chip .bar{width:9px;height:9px;border-radius:3px}
+
+  /* projects */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--border);
+    border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px;
+    text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:transform .2s,border-color .2s}
+  .card::after{content:"";position:absolute;inset:0;border-radius:16px;padding:1px;
+    background:linear-gradient(120deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+  .card:hover{transform:translateY(-6px);border-color:transparent}
+  .card:hover::after{opacity:1}
+  .card .top{display:flex;align-items:center;justify-content:space-between}
+  .card .repo-icon{width:34px;height:34px;border-radius:9px;background:var(--panel2);
+    display:grid;place-items:center;color:var(--accent2);border:1px solid var(--border)}
+  .card h3{font-size:1.12rem;font-weight:700}
+  .card p{color:var(--muted);font-size:.9rem;flex:1;min-height:38px}
+  .card .foot{display:flex;align-items:center;gap:16px;color:var(--muted);font-size:.82rem;margin-top:4px}
+  .card .foot .lang{display:flex;align-items:center;gap:6px;color:var(--text)}
+  .card .foot .dot{width:11px;height:11px;border-radius:50%}
+  .badge-fork{font-size:.7rem;color:var(--accent3);border:1px solid var(--accent3);padding:1px 7px;border-radius:20px}
+
+  .loading{text-align:center;color:var(--muted);padding:40px;grid-column:1/-1}
+  .spinner{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--accent);
+    border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
+
+  .toggle-row{display:flex;justify-content:flex-end;margin-top:16px}
+  .toggle-row button{background:var(--panel);border:1px solid var(--border);color:var(--muted);
+    padding:8px 16px;border-radius:10px;cursor:pointer;font-weight:600;font-size:.85rem;transition:.2s}
+  .toggle-row button:hover{color:var(--text);border-color:var(--accent)}
+
+  /* github stats images */
+  .ghstats{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+  .ghstats img{width:100%;border-radius:14px;border:1px solid var(--border)}
+  @media(max-width:720px){.ghstats{grid-template-columns:1fr}}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  footer{padding:60px 0 40px;text-align:center;color:var(--muted);font-size:.88rem;border-top:1px solid var(--border);margin-top:40px}
+  footer a{color:var(--accent2);text-decoration:none}
+  .socials{display:flex;gap:18px;justify-content:center;margin-bottom:18px}
+  .socials a{width:42px;height:42px;border-radius:11px;background:var(--panel);border:1px solid var(--border);
+    display:grid;place-items:center;color:var(--muted);transition:.2s;text-decoration:none}
+  .socials a:hover{color:#fff;transform:translateY(-3px);border-color:var(--accent)}
+  svg{display:block}
+</style>
+</head>
+<body>
+<div class="aurora"></div>
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span> Lazy-Pir8</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#projects">Projects</a>
+      <a href="#activity">Activity</a>
+    </div>
+  </div>
+</nav>
+
+<header id="about">
+  <div class="wrap">
+    <div class="hero reveal">
+      <div class="avatar-ring">
+        <img src="https://avatars.githubusercontent.com/u/216952756?v=4" alt="Harsh Sahu">
+      </div>
+      <div class="hero-info">
+        <h1 id="name">Harsh Sahu</h1>
+        <div class="handle">@Lazy-Pir8</div>
+        <p class="bio" id="bio">Lets Create Something Cool</p>
+        <div class="meta" id="meta"></div>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://github.com/Lazy-Pir8" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.6 1.2 3.3.9.1-.7.4-1.2.7-1.5-2.5-.3-5.2-1.3-5.2-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.3.8 1 .8 2.1v3.1c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            GitHub Profile
+          </a>
+          <a class="btn btn-ghost" href="#projects">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            View Work
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats reveal" id="stats">
+      <div class="stat"><div class="num" id="s-repos">—</div><div class="lbl">Repos</div></div>
+      <div class="stat"><div class="num" id="s-followers">—</div><div class="lbl">Followers</div></div>
+      <div class="stat"><div class="num" id="s-following">—</div><div class="lbl">Following</div></div>
+      <div class="stat"><div class="num" id="s-stars">—</div><div class="lbl">Stars Earned</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="stack">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="idx">01</span><h2>Tech Stack</h2><span class="line"></span></div>
+    <div class="chips" id="chips"></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="idx">02</span><h2>Projects</h2><span class="line"></span></div>
+    <div class="grid" id="projects-grid">
+      <div class="loading"><div class="spinner"></div>Fetching repositories…</div>
+    </div>
+    <div class="toggle-row"><button id="toggle-forks">Show forked repos</button></div>
+  </div>
+</section>
+
+<section id="activity">
+  <div class="wrap reveal">
+    <div class="sec-head"><span class="idx">03</span><h2>GitHub Activity</h2><span class="line"></span></div>
+    <div class="ghstats">
+      <img loading="lazy" alt="GitHub Stats"
+        src="https://github-readme-stats.vercel.app/api?username=Lazy-Pir8&show_icons=true&hide_border=true&count_private=true&bg_color=12141d&title_color=7c5cff&icon_color=22d3ee&text_color=c9d1d9&ring_color=7c5cff">
+      <img loading="lazy" alt="Top Languages"
+        src="https://github-readme-stats.vercel.app/api/top-langs/?username=Lazy-Pir8&layout=compact&hide_border=true&bg_color=12141d&title_color=7c5cff&text_color=c9d1d9&langs_count=8">
+    </div>
+    <div style="margin-top:18px">
+      <img loading="lazy" alt="Streak" style="width:100%;border-radius:14px;border:1px solid var(--border)"
+        src="https://github-readme-streak-stats.herokuapp.com/?user=Lazy-Pir8&hide_border=true&background=12141d&stroke=232838&ring=7c5cff&fire=f471b5&currStreakLabel=22d3ee&sideLabels=c9d1d9&dates=8b93a7&currStreakNum=ffffff&sideNums=ffffff">
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="socials">
+    <a href="https://github.com/Lazy-Pir8" target="_blank" rel="noopener" title="GitHub">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.6 1.2 3.3.9.1-.7.4-1.2.7-1.5-2.5-.3-5.2-1.3-5.2-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.3.8 1 .8 2.1v3.1c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+    </a>
+  </div>
+  <p>Built with ☕ by Harsh Sahu · <a href="https://github.com/Lazy-Pir8">@Lazy-Pir8</a></p>
+  <p style="margin-top:6px;opacity:.6">Live at pir8lab.me · data pulled live from GitHub</p>
+</footer>
+
+<script>
+const USER='Lazy-Pir8';
+const langColors={JavaScript:'#f1e05a',TypeScript:'#3178c6',Python:'#3572A5',Go:'#00ADD8',
+  'C++':'#f34b7d',C:'#555555',HTML:'#e34c26',CSS:'#563d7c',Shell:'#89e051',Java:'#b07219',
+  Rust:'#dea584',Ruby:'#701516',Solidity:'#AA6746',Jupyter:'#DA5B0B','Jupyter Notebook':'#DA5B0B',Move:'#4a90d9'};
+const lc=l=>langColors[l]||'#7c5cff';
+const fmt=n=>n>=1000?(n/1000).toFixed(1)+'k':(''+n);
+
+let allRepos=[], showForks=false;
+
+async function load(){
+  try{
+    const [uRes,rRes]=await Promise.all([
+      fetch(`https://api.github.com/users/${USER}`),
+      fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=updated`)
+    ]);
+    const u=await uRes.json();
+    allRepos=await rRes.json();
+    if(!Array.isArray(allRepos)) allRepos=[];
+
+    // profile
+    if(u.name) document.getElementById('name').textContent=u.name;
+    if(u.bio) document.getElementById('bio').textContent=u.bio;
+    const meta=[];
+    if(u.company) meta.push(icon('company')+u.company);
+    if(u.location) meta.push(icon('loc')+u.location);
+    if(u.created_at) meta.push(icon('cal')+'Joined '+new Date(u.created_at).toLocaleDateString('en-US',{month:'short',year:'numeric'}));
+    document.getElementById('meta').innerHTML=meta.map(m=>`<span>${m}</span>`).join('');
+
+    animateNum('s-repos',u.public_repos||allRepos.length);
+    animateNum('s-followers',u.followers||0);
+    animateNum('s-following',u.following||0);
+    const stars=allRepos.reduce((a,r)=>a+(r.stargazers_count||0),0);
+    animateNum('s-stars',stars);
+
+    renderStack();
+    renderProjects();
+  }catch(e){
+    document.getElementById('projects-grid').innerHTML=
+      `<div class="loading">GitHub API rate limit hit — <a href="https://github.com/${USER}?tab=repositories" style="color:var(--accent2)">view repos on GitHub</a>. Try again in a bit.</div>`;
+  }
+}
+
+function icon(t){
+  const s='style="vertical-align:-2px;margin-right:2px"';
+  if(t==='company')return `<svg ${s} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M6 21V7l6-4 6 4v14M10 9h.01M14 9h.01M10 13h.01M14 13h.01"/></svg>`;
+  if(t==='loc')return `<svg ${s} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+  return `<svg ${s} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>`;
+}
+
+function animateNum(id,target){
+  const el=document.getElementById(id);let cur=0;const step=Math.max(1,Math.ceil(target/40));
+  const t=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(t)}el.textContent=fmt(cur)},22);
+}
+
+function renderStack(){
+  const counts={};
+  allRepos.forEach(r=>{if(r.language)counts[r.language]=(counts[r.language]||0)+1});
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('chips').innerHTML=sorted.map(([l])=>
+    `<div class="chip"><span class="bar" style="background:${lc(l)}"></span>${l}</div>`).join('')
+    || '<div class="chip">Polyglot developer</div>';
+}
+
+function renderProjects(){
+  const grid=document.getElementById('projects-grid');
+  let repos=allRepos.filter(r=>showForks?true:!r.fork);
+  repos.sort((a,b)=> (b.stargazers_count-a.stargazers_count) || (new Date(b.updated_at)-new Date(a.updated_at)));
+  if(!repos.length){grid.innerHTML='<div class="loading">No repositories to show.</div>';return}
+  grid.innerHTML=repos.map(r=>`
+    <a class="card" href="${r.html_url}" target="_blank" rel="noopener">
+      <div class="top">
+        <div class="repo-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        ${r.fork?'<span class="badge-fork">fork</span>':''}
+      </div>
+      <h3>${r.name}</h3>
+      <p>${r.description?escapeHtml(r.description):'<em style="opacity:.6">No description provided.</em>'}</p>
+      <div class="foot">
+        ${r.language?`<span class="lang"><span class="dot" style="background:${lc(r.language)}"></span>${r.language}</span>`:''}
+        <span title="Stars">★ ${r.stargazers_count}</span>
+        <span title="Forks">⑂ ${r.forks_count}</span>
+      </div>
+    </a>`).join('');
+}
+
+function escapeHtml(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+document.getElementById('toggle-forks').addEventListener('click',function(){
+  showForks=!showForks;this.textContent=showForks?'Hide forked repos':'Show forked repos';renderProjects();
+});
+
+// scroll reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+load();
+</script>
+</body>
+</html>
