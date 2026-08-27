@@ -10,17 +10,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body data-theme="light">
+    <canvas id="doodle-pad"></canvas>
     <nav>
         <div class="nav-container">
             <div class="logo">
                 <span class="yellow-text">Harsh</span> Sahu.
             </div>
             <ul class="nav-links">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home" class="active scribble-hover">Home</a></li>
+                <li><a href="#about" class="scribble-hover">About</a></li>
+                <li><a href="#skills" class="scribble-hover">Skills</a></li>
+                <li><a href="#projects" class="scribble-hover">Projects</a></li>
+                <li><a href="#contact" class="scribble-hover">Contact</a></li>
             </ul>
             <div class="theme-toggle" id="theme-toggle" title="Toggle Theme">
                 <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -121,6 +122,20 @@
                         <a href="https://github.com/Lazy-Pir8/physics-assoc" target="_blank" class="btn">GitHub</a>
                         <a href="https://bitsphyassoc.vercel.app" target="_blank" class="btn">Live</a>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="terminal" class="terminal-container">
+            <div class="terminal-header">
+                <span class="btn-red"></span><span class="btn-yellow"></span><span class="btn-green"></span>
+                <span class="title">guest@harsh-sahu: ~</span>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+                <p>Welcome to Harsh's Terminal. Type 'help' to see available commands.</p>
+                <div class="terminal-input-line">
+                    <span class="prompt">$</span>
+                    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" />
                 </div>
             </div>
         </section>

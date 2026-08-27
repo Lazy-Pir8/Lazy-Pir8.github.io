@@ -353,21 +353,60 @@ body[data-theme="dark"] .btn:hover, body[data-theme="dark"] .social-btn:hover {
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 40px;
+    gap: 50px;
     margin-top: 40px;
 }
 
 .project-card {
-    border: 2px dashed currentColor;
-    padding: 25px;
+    background-color: #fef08a;
+    border: none;
+    padding: 30px;
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.15);
+    position: relative;
+    color: #1e293b;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s;
-    background-color: rgba(255, 255, 255, 0.5);
+    transform: rotate(calc(-2deg + 4deg * var(--random, 0.5)));
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.project-card:hover {
+    transform: scale(1.05) rotate(0);
+    box-shadow: 5px 10px 20px rgba(0,0,0,0.25);
+    z-index: 10;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 25px;
+    background-color: rgba(255,255,255,0.5);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.project-card:nth-child(2n) { background-color: #bae6fd; }
+.project-card:nth-child(3n) { background-color: #fbcfe8; }
+.project-card:nth-child(4n) { background-color: #bbf7d0; }
+
 body[data-theme="dark"] .project-card {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-dark);
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.5);
+    border: 1px dashed var(--border-dark);
+}
+
+body[data-theme="dark"] .project-card::before {
+    background-color: rgba(0,0,0,0.4);
+}
+
+body[data-theme="dark"] .project-card:nth-child(2n),
+body[data-theme="dark"] .project-card:nth-child(3n),
+body[data-theme="dark"] .project-card:nth-child(4n) {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .project-card:hover {
@@ -427,4 +466,104 @@ body[data-theme="dark"] .project-card {
     .nav-links {
         display: none;
     }
+}
+
+/* Doodle Pad */
+#doodle-pad {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* Scribble Hover */
+.scribble-hover {
+    position: relative;
+    display: inline-block;
+}
+.scribble-hover::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 10px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,5 Q25,0 50,5 T100,5" stroke="%23fcd34d" stroke-width="4" stroke-linecap="round" fill="none"/></svg>') no-repeat;
+    background-size: 100% 100%;
+    transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+body[data-theme="dark"] .scribble-hover::after {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,5 Q25,0 50,5 T100,5" stroke="%23fbbf24" stroke-width="4" stroke-linecap="round" fill="none"/></svg>') no-repeat;
+}
+.scribble-hover:hover::after, .scribble-hover.active::after {
+    width: 100%;
+}
+
+/* Terminal */
+.terminal-container {
+    max-width: 800px;
+    margin: 60px auto;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    font-family: 'Courier New', Courier, monospace;
+    color: #a3be8c;
+    font-size: 1.1rem;
+    text-align: left;
+    border: 2px solid #333;
+}
+.terminal-header {
+    background-color: #333;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+.terminal-header span[class^="btn-"] {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+.btn-red { background-color: #ff5f56; }
+.btn-yellow { background-color: #ffbd2e; }
+.btn-green { background-color: #27c93f; }
+.terminal-header .title {
+    color: #ccc;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    margin-left: 15px;
+}
+.terminal-body {
+    padding: 20px;
+    min-height: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.terminal-body p {
+    margin: 5px 0;
+    color: #d8dee9;
+    font-family: 'Courier New', Courier, monospace;
+}
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.prompt {
+    color: #88c0d0;
+    margin-right: 10px;
+}
+#terminal-input {
+    background: transparent;
+    border: none;
+    color: #ebcb8b;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    flex: 1;
+    outline: none;
 }

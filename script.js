@@ -35,6 +35,95 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Fetch detailed repos from GitHub
     fetchDetailedProjects();
+
+    // Doodle Pad Logic
+    const canvas = document.getElementById('doodle-pad');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        document.addEventListener('mousedown', (e) => {
+            if (e.target.closest('a, button, input, .theme-toggle, .terminal-container')) return;
+            isDrawing = true;
+            lastX = e.clientX;
+            lastY = e.clientY;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.clientX, e.clientY);
+            
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(59, 130, 246, 0.4)';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+            
+            lastX = e.clientX;
+            lastY = e.clientY;
+        });
+
+        document.addEventListener('mouseup', () => isDrawing = false);
+    }
+
+    // Terminal Logic
+    const termInput = document.getElementById('terminal-input');
+    const termBody = document.getElementById('terminal-body');
+    
+    if (termInput && termBody) {
+        termInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const command = termInput.value.trim().toLowerCase();
+                termInput.value = '';
+                
+                if (command === '') return;
+                
+                // Echo command
+                const echoNode = document.createElement('p');
+                echoNode.innerHTML = `<span class="prompt">$</span> <span style="color:#ebcb8b">${command}</span>`;
+                termBody.insertBefore(echoNode, termInput.parentElement);
+                
+                // Process command
+                const outputNode = document.createElement('p');
+                if (command === 'help') {
+                    outputNode.innerHTML = "Available commands: <br> - whoami: Discover my identity <br> - skills: List my tech stack <br> - clear: Clear terminal <br> - sudo: ???";
+                } else if (command === 'whoami') {
+                    outputNode.innerHTML = "guest@harsh-sahu. I am a software developer building cool stuff.";
+                } else if (command === 'skills') {
+                    outputNode.innerHTML = "JavaScript, Go, Python, TypeScript, React, PostgreSQL.";
+                } else if (command === 'clear') {
+                    termBody.innerHTML = '';
+                    termBody.appendChild(termInput.parentElement);
+                    return;
+                } else if (command === 'sudo') {
+                    outputNode.innerHTML = "Nice try! This incident will be reported.";
+                    outputNode.style.color = "#bf616a";
+                } else {
+                    outputNode.innerHTML = `Command not found: ${command}. Type 'help' for available commands.`;
+                    outputNode.style.color = "#bf616a";
+                }
+                
+                termBody.insertBefore(outputNode, termInput.parentElement);
+                termBody.scrollTop = termBody.scrollHeight;
+            }
+        });
+        
+        // Focus terminal on click
+        termBody.addEventListener('click', () => termInput.focus());
+    }
 });
 
 async function fetchDetailedProjects() {
