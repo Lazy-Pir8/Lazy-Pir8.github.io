@@ -1,18 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
-    const htmlElement = document.documentElement;
+    const bodyElement = document.body;
     const themeIcon = document.getElementById('theme-icon');
 
     // Theme Toggle Logic
     const savedTheme = localStorage.getItem('theme') || 'light';
-    htmlElement.setAttribute('data-theme', savedTheme);
+    bodyElement.setAttribute('data-theme', savedTheme);
     updateIcon(savedTheme);
 
     themeToggle.addEventListener('click', () => {
-        const currentTheme = htmlElement.getAttribute('data-theme');
+        const currentTheme = bodyElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
         
-        htmlElement.setAttribute('data-theme', newTheme);
+        bodyElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
         updateIcon(newTheme);
     });
@@ -63,7 +63,7 @@ async function fetchDetailedProjects() {
                 // For the "handwritten" aesthetic we don't need complex icons, just raw text and dashed borders
                 card.innerHTML = `
                     <h3>${repo.name.replace(/-/g, ' ')}</h3>
-                    <p>${repo.description || 'A cool piece of software crafted with code and coffee.'}</p>
+                    <p>${repo.description || 'A piece of software crafted with code and logic.'}</p>
                     <div class="project-links">
                         <a href="${repo.html_url}" target="_blank" class="btn">GitHub</a>
                         ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" class="btn">Live</a>` : ''}
