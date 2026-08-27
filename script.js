@@ -86,46 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.globalCompositeOperation = 'source-over';
         }, 100);
+    // GitHub API fetching disabled to show curated resume projects
     }
 });
-
-async function fetchDetailedProjects() {
-    const container = document.getElementById('projects-container');
-    const username = 'Lazy-Pir8';
-    
-    try {
-        const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
-        if (!response.ok) return; // Silent fail, keep hardcoded HTML fallback
-        
-        const allRepos = await response.json();
-        
-        // Filter out fork and portfolio
-        const reposToDisplay = allRepos
-            .filter(repo => !repo.fork && repo.name !== 'Lazy-Pir8.github.io')
-            .sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.updated_at) - new Date(a.updated_at))
-            .slice(0, 8); // Top 8 projects
-            
-        if (reposToDisplay.length > 0) {
-            container.innerHTML = '';
-            
-            reposToDisplay.forEach(repo => {
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                
-                // For the "handwritten" aesthetic we don't need complex icons, just raw text and dashed borders
-                card.innerHTML = `
-                    <h3>${repo.name.replace(/-/g, ' ')}</h3>
-                    <p>${repo.description || 'A piece of software crafted with code and logic.'}</p>
-                    <div class="project-links">
-                        <a href="${repo.html_url}" target="_blank" class="btn">GitHub</a>
-                        ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" class="btn">Live</a>` : ''}
-                    </div>
-                `;
-                
-                container.appendChild(card);
-            });
-        }
-    } catch (error) {
-        console.error('Error fetching projects:', error);
-    }
-}
