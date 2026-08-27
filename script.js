@@ -105,9 +105,9 @@ async function fetchDetailedProjects() {
         
         const allRepos = await response.json();
         
-        // Filter out fork and portfolio
+        // Filter out only the portfolio repository
         allReposData = allRepos
-            .filter(repo => !repo.fork && repo.name !== 'Lazy-Pir8.github.io')
+            .filter(repo => repo.name !== 'Lazy-Pir8.github.io')
             .sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.updated_at) - new Date(a.updated_at));
             
         if (allReposData.length > 0) {
