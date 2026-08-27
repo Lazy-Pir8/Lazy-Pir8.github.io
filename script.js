@@ -92,6 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchDetailedProjects();
 });
 
+let isExpanded = false;
+let allReposData = [];
+
 async function fetchDetailedProjects() {
     const container = document.getElementById('projects-container');
     const username = 'Lazy-Pir8';
@@ -103,31 +106,75 @@ async function fetchDetailedProjects() {
         const allRepos = await response.json();
         
         // Filter out fork and portfolio
-        const reposToDisplay = allRepos
+        allReposData = allRepos
             .filter(repo => !repo.fork && repo.name !== 'Lazy-Pir8.github.io')
-            .sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.updated_at) - new Date(a.updated_at))
-            .slice(0, 8); // Top 8 projects
+            .sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.updated_at) - new Date(a.updated_at));
             
-        if (reposToDisplay.length > 0) {
-            container.innerHTML = '';
+        if (allReposData.length > 0) {
+            renderProjects(8);
             
-            reposToDisplay.forEach(repo => {
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                
-                card.innerHTML = `
-                    <h3>${repo.name.replace(/-/g, ' ')}</h3>
-                    <p>${repo.description || 'A piece of software crafted with code and logic.'}</p>
-                    <div class="project-links">
-                        <a href="${repo.html_url}" target="_blank" class="btn">GitHub</a>
-                        ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" class="btn">Live</a>` : ''}
-                    </div>
-                `;
-                
-                container.appendChild(card);
+            if (allReposData.length > 8) {
+                const btn = document.getElementById('show-more-btn');
+                if (btn) {
+                    btn.style.display = 'inline-block';
+                    btn.addEventListener('click', () => {
+                        isExpanded = !isExpanded;
+                        if (isExpanded) {
+                            renderProjects(allReposData.length);
+                            btn.textContent = 'Show Less';
+                        } else {
+                            renderProjects(8);
+                            btn.textContent = 'Show All Repos';
+                            document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                }
+            }
+        }
+        
+        // Automate Languages & Skills
+        const skillsContainer = document.querySelector('.skills-container');
+        if (skillsContainer) {
+            // Keep robust manual tools, then add dynamic ones
+            const languages = new Set(['Antigravity', 'Docker', 'AWS', 'PostgreSQL', 'Machine Learning']);
+            allReposData.forEach(repo => {
+                if (repo.language) {
+                    languages.add(repo.language);
+                }
+            });
+            
+            skillsContainer.innerHTML = '';
+            languages.forEach(lang => {
+                const span = document.createElement('span');
+                span.className = 'skill-tag';
+                span.textContent = lang;
+                skillsContainer.appendChild(span);
             });
         }
+        
     } catch (error) {
         console.error('Error fetching projects:', error);
     }
+}
+
+function renderProjects(limit) {
+    const container = document.getElementById('projects-container');
+    container.innerHTML = '';
+    const reposToDisplay = allReposData.slice(0, limit);
+    
+    reposToDisplay.forEach(repo => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        
+        card.innerHTML = `
+            <h3>${repo.name.replace(/-/g, ' ')}</h3>
+            <p>${repo.description || 'A piece of software crafted with code and logic.'}</p>
+            <div class="project-links">
+                <a href="${repo.html_url}" target="_blank" class="btn">GitHub</a>
+                ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" class="btn">Live</a>` : ''}
+            </div>
+        `;
+        
+        container.appendChild(card);
+    });
 }
