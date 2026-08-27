@@ -33,9 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tag.style.setProperty('--random', Math.random());
     });
     
-    // Fetch detailed repos from GitHub
-    fetchDetailedProjects();
-
     // Doodle Pad Logic
     const canvas = document.getElementById('doodle-pad');
     if (canvas) {
