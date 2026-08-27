@@ -10,12 +10,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body data-theme="light">
-    <div class="background-quotes">
-        <span class="bg-quote quote-1">"Programs must be written for people to read, and only incidentally for machines to execute."</span>
-        <span class="bg-quote quote-2">"Simplicity is prerequisite for reliability."</span>
-        <span class="bg-quote quote-3">"Talk is cheap. Show me the code."</span>
-        <span class="bg-quote quote-4">"Code is like humor. When you have to explain it, it’s bad."</span>
-    </div>
     <canvas id="doodle-pad"></canvas>
     <nav>
         <div class="nav-container">
@@ -59,12 +53,13 @@
         <div class="divider"></div>
 
         <section id="about" class="about-section">
+            <blockquote class="section-quote">"Programs must be written for people to read, and only incidentally for machines to execute."</blockquote>
             <h2>About</h2>
             <div class="about-grid">
                 <div class="about-content">
-                    <p>I am a dual-degree engineering student at BITS Pilani (B.E. Electrical and Electronics Engineering + M.Sc. Physics). My technical journey revolves around building reliable backend systems, understanding machine learning, and structuring clean data pipelines.</p>
-                    <p>Currently, I'm working as a Backend Developer for the <strong>BITS Pilani x Postman Innovation Lab</strong>, where I develop microservices using Python, Go, and Django, and containerize them using Docker.</p>
-                    <p>Outside of coding, I'm an active member of the Student Faculty Council, HR Coordinator for <em>The Eastern Outlook</em>, and a member of the Gaming Club.</p>
+                    <p>I am an engineering student at BITS Pilani (B.E. Electrical and Electronics Engineering + M.Sc. Physics). My technical journey revolves around building reliable backend systems, understanding algorithms, and structuring clean data pipelines.</p>
+                    <p>When I'm not studying, I spend my time dissecting complex problems, experimenting with new frameworks, and refining system performance across various technology stacks.</p>
+                    <p>I'm also an active member of the Student Faculty Council, HR Coordinator for <em>The Eastern Outlook</em>, and a member of the Gaming Club.</p>
                 </div>
                 <div class="stats-box">
                     <h3>At a Glance</h3>
@@ -81,6 +76,7 @@
         <div class="divider"></div>
 
         <section id="skills" class="skills-section text-center">
+            <blockquote class="section-quote" style="margin: 0 auto 30px auto; text-align: left;">"Simplicity is prerequisite for reliability." — Edsger W. Dijkstra</blockquote>
             <h2>My Toolbox</h2>
             <div class="skills-container">
                 <span class="skill-tag">Python & Django</span>
@@ -97,35 +93,38 @@
         <div class="divider"></div>
 
         <section id="projects" class="projects-section">
+            <blockquote class="section-quote">"Talk is cheap. Show me the code." — Linus Torvalds</blockquote>
             <h2 class="text-center">Things I've Built</h2>
             <div class="projects-grid" id="projects-container">
+                <!-- Projects will be injected here via JS, but we provide fallbacks -->
                 <div class="project-card">
                     <h3>CLAMS</h3>
-                    <p>Campus Leave & Attendance Management System. Built a backend API in Go enabling students to apply for leave and administrators to track daily attendance.</p>
+                    <p>A robust backend API written in Go for managing student attendance and leave requests, featuring JWT authentication and role-based access control.</p>
                     <div class="project-links">
                         <a href="https://github.com/Lazy-Pir8/CLAMS" target="_blank" class="btn">GitHub</a>
                     </div>
                 </div>
                 <div class="project-card">
-                    <h3>Carpooling System</h3>
-                    <p>A full-stack node-based carpooling platform allowing drivers to post trips and passengers to book rides. Deployed via Docker and Nginx on AWS EC2.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/Lazy-Pir8/Node-Based-Carpooling-System" target="_blank" class="btn">GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
                     <h3>Xpedition</h3>
-                    <p>A Next.js gaming achievement platform for users to upload clips and complete challenges. Secured AWS Aurora database access using short-lived IAM tokens.</p>
+                    <p>A community platform built with Next.js and PostgreSQL where gamers share out-of-the-box playthroughs to earn custom achievements and badges.</p>
                     <div class="project-links">
                         <a href="https://github.com/Lazy-Pir8/Xpedition" target="_blank" class="btn">GitHub</a>
                         <a href="https://v0-user-created-achievements-platfo.vercel.app" target="_blank" class="btn">Live</a>
                     </div>
                 </div>
                 <div class="project-card">
-                    <h3>Match Predictor</h3>
-                    <p>Cleaned and processed international football match data using Pandas and Jupyter Notebooks to build and compare machine learning outcome prediction models.</p>
+                    <h3>linkedin_scraper</h3>
+                    <p>An asynchronous Python scraping tool built with Playwright to extract comprehensive profile, company, and job data from LinkedIn.</p>
                     <div class="project-links">
-                        <a href="https://github.com/Lazy-Pir8" target="_blank" class="btn">GitHub</a>
+                        <a href="https://github.com/Lazy-Pir8/linkedin_scraper" target="_blank" class="btn">GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>physics-assoc</h3>
+                    <p>A highly customized frontend interface utilizing advanced typography, modern CSS layouts, and interactive animations.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/Lazy-Pir8/physics-assoc" target="_blank" class="btn">GitHub</a>
+                        <a href="https://bitsphyassoc.vercel.app" target="_blank" class="btn">Live</a>
                     </div>
                 </div>
             </div>
@@ -134,6 +133,7 @@
         <div class="divider"></div>
 
         <section id="contact" class="contact-section text-center">
+            <blockquote class="section-quote" style="margin: 0 auto 30px auto; text-align: left;">"Code is like humor. When you have to explain it, it’s bad." — Cory House</blockquote>
             <h2>Connect</h2>
             <p>Follow me for the latest updates, projects, and random code snippets.</p>
             <div class="social-links">
