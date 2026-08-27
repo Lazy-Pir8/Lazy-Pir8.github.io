@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let isExpanded = false;
 let allReposData = [];
+let originalRepos = [];
 
 async function fetchDetailedProjects() {
     const container = document.getElementById('projects-container');
@@ -110,20 +111,25 @@ async function fetchDetailedProjects() {
             .filter(repo => repo.name !== 'Lazy-Pir8.github.io')
             .sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.updated_at) - new Date(a.updated_at));
             
-        if (allReposData.length > 0) {
-            renderProjects(4);
+        // Get original (non-forked) repos
+        originalRepos = allReposData.filter(repo => !repo.fork);
             
-            if (allReposData.length > 4) {
+        if (originalRepos.length > 0) {
+            const initialRepos = originalRepos.slice(0, 8);
+            renderProjects(initialRepos);
+            
+            // Show button if there are more repos available than what is initially shown
+            if (allReposData.length > initialRepos.length) {
                 const btn = document.getElementById('show-more-btn');
                 if (btn) {
                     btn.style.display = 'inline-block';
                     btn.addEventListener('click', () => {
                         isExpanded = !isExpanded;
                         if (isExpanded) {
-                            renderProjects(allReposData.length);
+                            renderProjects(allReposData);
                             btn.textContent = 'Show Less';
                         } else {
-                            renderProjects(4);
+                            renderProjects(initialRepos);
                             btn.textContent = 'Show All Repos';
                             document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
                         }
@@ -132,7 +138,7 @@ async function fetchDetailedProjects() {
             }
         }
         
-        // Automate Languages & Skills
+        // Automate Languages & Skills based on ALL repos
         const skillsContainer = document.querySelector('.skills-container');
         if (skillsContainer) {
             // Keep robust manual tools, then add dynamic ones
@@ -157,17 +163,20 @@ async function fetchDetailedProjects() {
     }
 }
 
-function renderProjects(limit) {
+function renderProjects(reposList) {
     const container = document.getElementById('projects-container');
     container.innerHTML = '';
-    const reposToDisplay = allReposData.slice(0, limit);
     
-    reposToDisplay.forEach(repo => {
+    reposList.forEach(repo => {
         const card = document.createElement('div');
         card.className = 'project-card';
         
+        const forkBadge = repo.fork 
+            ? `<span style="font-size: 0.75rem; background: rgba(128,128,128,0.2); padding: 3px 6px; border-radius: 4px; margin-left: 10px; border: 1px solid currentColor; opacity: 0.8; vertical-align: middle;">Fork</span>` 
+            : '';
+        
         card.innerHTML = `
-            <h3>${repo.name.replace(/-/g, ' ')}</h3>
+            <h3>${repo.name.replace(/-/g, ' ')}${forkBadge}</h3>
             <p>${repo.description || 'A piece of software crafted with code and logic.'}</p>
             <div class="project-links">
                 <a href="${repo.html_url}" target="_blank" class="btn">GitHub</a>
