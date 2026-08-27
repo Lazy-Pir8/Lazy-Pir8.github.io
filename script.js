@@ -111,9 +111,9 @@ async function fetchDetailedProjects() {
             .sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.updated_at) - new Date(a.updated_at));
             
         if (allReposData.length > 0) {
-            renderProjects(8);
+            renderProjects(4);
             
-            if (allReposData.length > 8) {
+            if (allReposData.length > 4) {
                 const btn = document.getElementById('show-more-btn');
                 if (btn) {
                     btn.style.display = 'inline-block';
@@ -123,7 +123,7 @@ async function fetchDetailedProjects() {
                             renderProjects(allReposData.length);
                             btn.textContent = 'Show Less';
                         } else {
-                            renderProjects(8);
+                            renderProjects(4);
                             btn.textContent = 'Show All Repos';
                             document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
                         }
