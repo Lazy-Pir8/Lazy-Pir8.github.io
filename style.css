@@ -312,6 +312,7 @@ body[data-theme="dark"] .btn:hover, body[data-theme="dark"] .social-btn:hover {
     border: 2px dashed currentColor;
     padding: 30px;
     transform: rotate(-1deg);
+    align-self: start;
 }
 
 .stats-box ul {
